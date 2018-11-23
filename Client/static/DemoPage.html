@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WEB API 跨域访问测试页</title>
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <!--  通讯模块开始 -->
+    <script>
+	$(function(){
+		// 发送验证码到手机
+		$("#btn-send-verification-code").click(function(){
+			var sendVerificationCode =
+			{
+				ReservationNo: "Liuzhenhua",
+				HotelId: "123abcd",
+				Mobile:"13240137763"
+			}; // 发送的数据要与接收端的数据结果相同
+			var jsonString = JSON.stringify(sendVerificationCode);
+            $.ajax({
+                type: 'POST',
+                url: 'https://localhost:44348/api/ProcessPostData', // URL 需要修改
+                data: jsonString,
+                contentType: 'application/json; charset=utf-8',  // 必须指定
+                dataType: 'json',                                // 必须指定
+                success: function (data) {
+                    // 返回结果处理
+					//alert('successful'); 
+                },
+                error: function (msg) {
+                    // 错误处理
+                    console.log(msg)
+                }
+            });
+		});
+
+});
+    </script>
+    <!--  通讯模块结束 -->
+</head>
+<body>
+    <div class="container">
+        <div class="col col-lg-3"></div>
+        <div class="col col-lg-6">
+            <p></p>
+            <h2>WEB API 跨域访问测试页</h2>
+            <hr />
+            <form id="frm">
+                <button type="button" class="btn btn-default" id="btn-send-verification-code">发送请求</button>
+            </form>
+        </div>
+        <div class="col col-lg-3"></div>
+    </div>
+    <div id='output'></div>
+
+</body>
+</html>
